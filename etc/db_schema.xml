@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright ©  All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="blog_post" resource="default" engine="innodb" comment="Blog Posts">
+        <column xsi:type="int" name="post_id" unsigned="true" nullable="false" identity="true" comment="Post ID"/>
+        <column xsi:type="varchar" name="post_title" nullable="false" length="150" comment="Post Title"/>
+        <column xsi:type="text" name="post_content" nullable="false" comment="Post Content"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Date of Post Creation"/>
+        <column xsi:type="timestamp" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Date of Post Modification"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"/>
+        </constraint>
+        <index referenceId="BLOG_POST_ADDED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <index referenceId="BLOG_POST_MODIFIED_AT" indexType="btree">
+            <column name="modified_at"/>
+        </index>
+    </table>
+
+    <table name="blog_comment" resource="default" engine="innodb" comment="Blog Comment">
+        <column xsi:type="int" name="comment_id" unsigned="true" nullable="false" identity="true" comment="Comment ID"/>
+        <column xsi:type="int" name="post_id" unsigned="true" nullable="false" comment="Related Post ID"/>
+        <column xsi:type="varchar" name="author" nullable="false" length="150" comment="Author"/>
+        <column xsi:type="text" name="content" nullable="false" comment="Content"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Date of Comment Creation"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="comment_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="BLOG_COMMENT_POST_ID_BLOG_POST_POST_ID"
+            table="blog_comment" column="post_id"
+            referenceTable="blog_post" referenceColumn="post_id"
+            onDelete="CASCADE"/>
+    </table>
+</schema>
