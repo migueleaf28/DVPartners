@@ -14,7 +14,7 @@
 			<button name="add">
 				<url path="*/*/new"/>
 				<class>primary</class>
-				<label translate="true">Add new Comment</label>
+				<label translate="true">Add New Comment</label>
 			</button>
 		</buttons>
 	</settings>
@@ -69,49 +69,62 @@
 				<indexField>comment_id</indexField>
 			</settings>
 		</selectionsColumn>
-		<column name="comment_id">
-			<settings>
-				<filter>text</filter>
-				<sorting>asc</sorting>
-				<label translate="true">ID</label>
-			</settings>
-		</column>
-		<column name="post_id">
+       <selectionsColumn name="ids">
+            <settings>
+                <indexField>comment_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+ 
+        <column name="comment_id">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Post</label>
+				<sorting>asc</sorting>
+                <label translate="true">ID</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
             </settings>
         </column>
-		<column name="author">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">Author</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="content">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">Content</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<actionsColumn name="actions" class="DVPartners\Blog\Ui\Component\Listing\Column\CommentActions">
-			<settings>
-				<indexField>comment_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
-			</settings>
-		</actionsColumn>
+
+        <column name="post_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Post ID</label>
+            </settings>
+        </column>
+        <column name="author">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Author</label>
+            </settings>
+        </column>
+        
+        <column name="content">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Content</label>
+            </settings>
+        </column>
+        
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+                <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="DVPartners\Blog\Ui\Component\Listing\Column\CommentActions">
+            <settings>
+                <indexField>comment_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
 	</columns>
 </listing>

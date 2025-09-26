@@ -100,21 +100,6 @@ class PostRepository implements PostRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getById(int $postId): PostInterface
-    {
-        $post = $this->postFactory->create();
-        $this->resource->load($post, $postId);
-
-        if (!$post->getId()) {
-            throw new NoSuchEntityException(__('Post with id "%1" does not exist.', $postId));
-        }
-
-        return $post;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {

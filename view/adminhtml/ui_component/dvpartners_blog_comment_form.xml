@@ -56,13 +56,27 @@
 				</validation>
 			</settings>
 		</field>
+		<field name="post_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">DVPartners\Blog\Model\Comment\Source\PostOptions</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Related Post</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">post_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item> 
+                        </item>
+                </item>
+            </argument>
+        </field>
 		<field name="author">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string" translate="true">Author</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
-                    <item name="dataScope" xsi:type="string">Author</item>
+                    <item name="dataScope" xsi:type="string">author</item>
 					<item name="validation" xsi:type="array">
                 		<item name="required-entry" xsi:type="boolean">true</item>
             		</item>
@@ -75,7 +89,7 @@
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string" translate="true">Content</item>
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="dataScope" xsi:type="string">Content</item>
+                    <item name="dataScope" xsi:type="string">content</item>
 					<item name="validation" xsi:type="array">
                 		<item name="required-entry" xsi:type="boolean">true</item>
             		</item>

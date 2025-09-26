@@ -9,6 +9,12 @@
 					<resource id="DVPartners_Blog::Post_update" title="Update Post" sortOrder="30"/>
 					<resource id="DVPartners_Blog::Post_view" title="View Post" sortOrder="40"/>
 				</resource>
+					<resource id="DVPartners_Blog::Comment" title="Comment" sortOrder="10">
+					<resource id="DVPartners_Blog::Comment_save" title="Save Comment" sortOrder="10"/>
+					<resource id="DVPartners_Blog::Comment_delete" title="Delete Comment" sortOrder="20"/>
+					<resource id="DVPartners_Blog::Comment_update" title="Update Comment" sortOrder="30"/>
+					<resource id="DVPartners_Blog::Comment_view" title="View Comment" sortOrder="40"/>
+				</resource>
 			</resource>
 		</resources>
 	</acl>
