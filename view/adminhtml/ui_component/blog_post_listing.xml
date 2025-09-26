@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright ©  All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">blog_post_listing.blog_post_listing_data_source</item>
+            <item name="deps" xsi:type="string">blog_post_listing.blog_post_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">blog_post_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+            <item name="name" xsi:type="string">add</item>
+            <item name="label" xsi:type="string">Add New Post</item>
+            <item name="class" xsi:type="string">primary</item>
+            <item name="url" xsi:type="string">*/post/newpost</item>
+            </item> 
+        </item>
+    </argument>
+    <dataSource name="blog_post_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">DVPartners\Blog\Ui\Component\Listing\DataProvider</argument>
+            <argument name="name" xsi:type="string">blog_post_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">post_id</argument>
+            <argument name="requestFieldName" xsi:type="string">post_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <columns name="blog_post_columns">
+        <column name="post_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="post_title">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+
+        <column name="post_content">
+            <settings>
+                <filter>varchar</filter>
+                <label translate="true">Content</label>
+            </settings>
+        </column>
+
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+                <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+            </settings>
+        </column>
+
+        <column name="modified_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Modified At</label>
+                <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="DVPartners\Blog\Ui\Component\Listing\Column\PostActions">
+            <settings>
+                <indexField>post_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
