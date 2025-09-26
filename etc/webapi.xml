@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/dvpartners-blog/post" method="POST">
+		<service class="DVPartners\Blog\Api\PostRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="DVPartners_Blog::Post_save"/>
+		</resources>
+	</route>
+	<route url="/V1/dvpartners-blog/post/search" method="GET">
+		<service class="DVPartners\Blog\Api\PostRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="DVPartners_Blog::Post_view"/>
+		</resources>
+	</route>
+	<route url="/V1/dvpartners-blog/post/:postId" method="GET">
+		<service class="DVPartners\Blog\Api\PostRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="DVPartners_Blog::Post_view"/>
+		</resources>
+	</route>
+	<route url="/V1/dvpartners-blog/post/:postId" method="PUT">
+		<service class="DVPartners\Blog\Api\PostRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="DVPartners_Blog::Post_update"/>
+		</resources>
+	</route>
+	<route url="/V1/dvpartners-blog/post/:postId" method="DELETE">
+		<service class="DVPartners\Blog\Api\PostRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="DVPartners_Blog::Post_delete"/>
+		</resources>
+	</route>
+</routes>
