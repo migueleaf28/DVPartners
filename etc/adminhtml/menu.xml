@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright ©  All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+          <add id="DVPartners_Blog::menu_blog"
+          title="Blog"
+          module="DVPartners_Blog"
+          sortOrder="50"
+          resource="DVPartners_Blog::blog"/>
+          
+          <add id="DVPartners_Blog::posts"
+          title="Posts"
+          module="DVPartners_Blog"
+          sortOrder="10"
+          parent="DVPartners_Blog::menu_blog"
+          action="blog_post/index/index"
+          resource="DVPartners_Blog::post"/>
+          
+    </menu>
+</config>
