@@ -5,30 +5,31 @@
  */
 declare(strict_types=1);
 
-namespace DVPartners\Blog\Controller\Adminhtml\Post;
+namespace DVPartners\Blog\Controller\Adminhtml\Comment;
 
-use DVPartners\Blog\Api\PostRepositoryInterface;
+use DVPartners\Blog\Api\CommentRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
-use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Redirect;
 
 class Delete extends Action
 {
-    const ADMIN_RESOURCE = 'DVPartners_Blog::post_delete';
+    const ADMIN_RESOURCE = 'DVPartners_Blog::comment_delete';
 
-    protected PostRepositoryInterface $postRepository;
+    protected CommentRepositoryInterface $commentRepository;
 
     /**
      * @param Context $context
-     * @param PostRepositoryInterface $postRepository
+     * @param CommentRepositoryInterface $commentRepository
      */
     public function __construct(
         Context $context,
-        PostRepositoryInterface $postRepository
+        CommentRepositoryInterface $commentRepository
     ) {
-        $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
         parent::__construct($context);
     }
 
@@ -41,25 +42,25 @@ class Delete extends Action
     {
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
-        $id = (int)$this->getRequest()->getParam('post_id');
+        $id = (int)$this->getRequest()->getParam('comment_id');
 
         if ($id) {
             try {
-                $this->postRepository->deleteById($id);
+                $this->commentRepository->deleteById($id);
                 
-                $this->messageManager->addSuccessMessage(__('You deleted the Post with ID: %1.', $id));
+                $this->messageManager->addSuccessMessage(__('You deleted the Comment with ID: %1.', $id));
                 
                 return $resultRedirect->setPath('*/*/');
                 
             } catch (NoSuchEntityException $e) {
-                $this->messageManager->addErrorMessage(__('The Post you are trying to delete no longer exists.'));
+                $this->messageManager->addErrorMessage(__('The Comment you are trying to delete no longer exists.'));
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
-                return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
+                return $resultRedirect->setPath('*/*/edit', ['comment_id' => $id]);
             }
         }
         
-        $this->messageManager->addErrorMessage(__('We can\'t find a Post to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a Comment to delete.'));
         return $resultRedirect->setPath('*/*/');
     }
 }
