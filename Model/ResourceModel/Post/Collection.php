@@ -7,14 +7,17 @@ declare(strict_types=1);
 
 namespace DVPartners\Blog\Model\ResourceModel\Post;
 
-use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult; 
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
-class Collection extends SearchResult
+class Collection extends AbstractCollection
 {
     /**
-     * Define resource model
-     *
-     * @return void
+     * @inheritDoc
+     */
+    protected $_idFieldName = 'post_id';
+
+    /**
+     * @inheritDoc
      */
     protected function _construct()
     {
