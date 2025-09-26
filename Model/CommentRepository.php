@@ -7,37 +7,37 @@ declare(strict_types=1);
 
 namespace DVPartners\Blog\Model;
 
-use DVPartners\Blog\Api\Data\PostInterface;
-use DVPartners\Blog\Api\Data\PostInterfaceFactory;
-use DVPartners\Blog\Api\Data\PostSearchResultsInterfaceFactory;
-use DVPartners\Blog\Api\PostRepositoryInterface;
-use DVPartners\Blog\Model\ResourceModel\Post as ResourcePost;
-use DVPartners\Blog\Model\ResourceModel\Post\CollectionFactory as PostCollectionFactory;
+use DVPartners\Blog\Api\CommentRepositoryInterface;
+use DVPartners\Blog\Api\Data\CommentInterface;
+use DVPartners\Blog\Api\Data\CommentInterfaceFactory;
+use DVPartners\Blog\Api\Data\CommentSearchResultsInterfaceFactory;
+use DVPartners\Blog\Model\ResourceModel\Comment as ResourceComment;
+use DVPartners\Blog\Model\ResourceModel\Comment\CollectionFactory as CommentCollectionFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class PostRepository implements PostRepositoryInterface
+class CommentRepository implements CommentRepositoryInterface
 {
 
     /**
-     * @var ResourcePost
+     * @var ResourceComment
      */
     protected $resource;
 
     /**
-     * @var PostInterfaceFactory
+     * @var CommentInterfaceFactory
      */
-    protected $postFactory;
+    protected $commentFactory;
 
     /**
-     * @var PostCollectionFactory
+     * @var CommentCollectionFactory
      */
-    protected $postCollectionFactory;
+    protected $commentCollectionFactory;
 
     /**
-     * @var Post
+     * @var Comment
      */
     protected $searchResultsFactory;
 
@@ -48,22 +48,22 @@ class PostRepository implements PostRepositoryInterface
 
 
     /**
-     * @param ResourcePost $resource
-     * @param PostInterfaceFactory $postFactory
-     * @param PostCollectionFactory $postCollectionFactory
-     * @param PostSearchResultsInterfaceFactory $searchResultsFactory
+     * @param ResourceComment $resource
+     * @param CommentInterfaceFactory $commentFactory
+     * @param CommentCollectionFactory $commentCollectionFactory
+     * @param CommentSearchResultsInterfaceFactory $searchResultsFactory
      * @param CollectionProcessorInterface $collectionProcessor
      */
     public function __construct(
-        ResourcePost $resource,
-        PostInterfaceFactory $postFactory,
-        PostCollectionFactory $postCollectionFactory,
-        PostSearchResultsInterfaceFactory $searchResultsFactory,
+        ResourceComment $resource,
+        CommentInterfaceFactory $commentFactory,
+        CommentCollectionFactory $commentCollectionFactory,
+        CommentSearchResultsInterfaceFactory $searchResultsFactory,
         CollectionProcessorInterface $collectionProcessor
     ) {
         $this->resource = $resource;
-        $this->postFactory = $postFactory;
-        $this->postCollectionFactory = $postCollectionFactory;
+        $this->commentFactory = $commentFactory;
+        $this->commentCollectionFactory = $commentCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
     }
@@ -71,30 +71,30 @@ class PostRepository implements PostRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save(PostInterface $post)
+    public function save(CommentInterface $comment)
     {
         try {
-            $this->resource->save($post);
+            $this->resource->save($comment);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
-                'Could not save the post: %1',
+                'Could not save the comment: %1',
                 $exception->getMessage()
             ));
         }
-        return $post;
+        return $comment;
     }
 
     /**
      * @inheritDoc
      */
-    public function get($postId)
+    public function get($commentId)
     {
-        $post = $this->postFactory->create();
-        $this->resource->load($post, $postId);
-        if (!$post->getId()) {
-            throw new NoSuchEntityException(__('Post with id "%1" does not exist.', $postId));
+        $comment = $this->commentFactory->create();
+        $this->resource->load($comment, $commentId);
+        if (!$comment->getId()) {
+            throw new NoSuchEntityException(__('Comment with id "%1" does not exist.', $commentId));
         }
-        return $post;
+        return $comment;
     }
 
     /**
@@ -103,7 +103,7 @@ class PostRepository implements PostRepositoryInterface
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
-        $collection = $this->postCollectionFactory->create();
+        $collection = $this->commentCollectionFactory->create();
         
         $this->collectionProcessor->process($criteria, $collection);
         
@@ -123,15 +123,15 @@ class PostRepository implements PostRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function delete(PostInterface $post)
+    public function delete(CommentInterface $comment)
     {
         try {
-            $postModel = $this->postFactory->create();
-            $this->resource->load($postModel, $post->getPostId());
-            $this->resource->delete($postModel);
+            $commentModel = $this->commentFactory->create();
+            $this->resource->load($commentModel, $comment->getCommentId());
+            $this->resource->delete($commentModel);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(
-                'Could not delete the Post: %1',
+                'Could not delete the Comment: %1',
                 $exception->getMessage()
             ));
         }
@@ -141,9 +141,9 @@ class PostRepository implements PostRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function deleteById($postId)
+    public function deleteById($commentId)
     {
-        return $this->delete($this->get($postId));
+        return $this->delete($this->get($commentId));
     }
 }
 

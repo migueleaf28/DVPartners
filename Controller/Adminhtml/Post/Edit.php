@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright ©  All rights reserved.
+ * See COPYING.txt for license details.
+ */
 declare(strict_types=1);
 
 namespace DVPartners\Blog\Controller\Adminhtml\Post;
@@ -38,7 +42,7 @@ class Edit extends Action
         
         if ($id) {
             try {
-                $model = $this->postRepository->getById($id);
+                $model = $this->postRepository->get($id);
             } catch (NoSuchEntityException $e) {
                 $this->messageManager->addErrorMessage(__('This Post no longer exists.'));
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */

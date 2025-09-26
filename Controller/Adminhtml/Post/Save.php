@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright ©  All rights reserved.
+ * See COPYING.txt for license details.
+ */
 declare(strict_types=1);
 
 namespace DVPartners\Blog\Controller\Adminhtml\Post;
@@ -48,7 +52,7 @@ class Save extends Action
 
             if ($id) {
                 try {
-                    $model = $this->postRepository->getById((int) $id);
+                    $model = $this->postRepository->get((int) $id);
                 } catch (NoSuchEntityException $e) {
                     $this->messageManager->addErrorMessage(__('This Post no longer exists.'));
                     return $resultRedirect->setPath('*/*/');
